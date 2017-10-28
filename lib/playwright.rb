@@ -1,5 +1,10 @@
 require "playwright/version"
+require "playwright/commands/installer.rb"
 
 module Playwright
-  # Your code goes here...
+
+  def self.install
+    Commands::Installer.run
+  end
+
 end
