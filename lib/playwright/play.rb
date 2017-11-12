@@ -43,7 +43,7 @@ module Playwright
     end
 
     def validate!
-      valid? ? self : run_error
+      run_error if !valid?
     end
 
     def valid?
