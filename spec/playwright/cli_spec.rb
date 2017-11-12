@@ -42,4 +42,20 @@ RSpec.describe Playwright::Cli do
     end
 
   end
+
+  describe "#klass" do
+    context "when params.command is the name of a ruby class" do
+      let(:args) { ['get'] }
+      it "should return that class" do
+        expect(subject.klass).to eq(Playwright::Cli::Get)
+      end
+    end
+    context "when params.command is not the name of a ruby class" do
+      let(:args) { ['somebullshit'] }
+      it "should raise a NoRubyClassError" do
+        stub_const("Playwright::Cli::COMMANDS", ['somebullshit'])
+        expect{subject.klass}.to raise_error(Playwright::Cli::NoRubyClassError)
+      end
+    end
+  end
 end
