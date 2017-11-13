@@ -15,6 +15,11 @@ require 'playwright/installer'
 
 module Playwright
 
+  BIN_PATH = File.join(Dir.home, "/.playwright/bin").freeze
+  PLAYS_PATH = File.join(Dir.home, "/.playwright/plays").freeze
+
+  class PlaywrightExit < SystemExit; end
+
   def self.install
     Installer.run
   end

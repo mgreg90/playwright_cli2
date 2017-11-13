@@ -57,7 +57,7 @@ module Playwright
 
     def run_error
       puts @error[:message]
-      exit
+      raise PlaywrightExit
     end
 
   end

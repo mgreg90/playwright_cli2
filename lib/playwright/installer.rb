@@ -1,9 +1,6 @@
 module Playwright
   class Installer
 
-    BIN_PATH = "#{Dir.home}/.playwright/bin".freeze
-    PLAYS_PATH = "#{Dir.home}/.playwright/plays".freeze
-
     def self.run
       new.run
     end
@@ -13,15 +10,15 @@ module Playwright
     end
 
     def create_file_structure
-      find_or_create(BIN_PATH)
-      find_or_create(PLAYS_PATH)
+      find_or_create(Playwright::BIN_PATH)
+      find_or_create(Playwright::PLAYS_PATH)
     end
 
     def find_or_create(dir)
       if Dir.exists?(dir)
         dir_exists_msg(dir)
       else
-        FileUtils.mkpath(dir)
+        FileUtils.mkdir_p(dir)
         dir_created_msg(dir)
       end
     end

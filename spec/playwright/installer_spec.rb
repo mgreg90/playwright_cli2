@@ -17,7 +17,7 @@ RSpec.describe Playwright::Installer do
   end
 
   describe '#find_or_create' do
-    let(:bin_path) { subject.class.const_get('BIN_PATH') }
+    let(:bin_path) { Playwright.const_get('BIN_PATH') }
     context "when directory doesn't exist" do
       it 'outputs created msg' do
         expect { subject.find_or_create(bin_path) }.to output("#{bin_path} created!\n").to_stdout

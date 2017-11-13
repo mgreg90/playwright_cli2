@@ -16,7 +16,7 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
-    rake (10.5.0)
+    rake (12.2.1)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -36,13 +36,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.15.4)
+  bundler (~> 1.16.0)
   memfs (~> 1.0.0)
   playwright!
   pry (~> 0.10.4)
   pry-nav (~> 0.2.4)
-  rake (~> 10.0)
-  rspec (~> 3.1)
+  rake (~> 12.2.1)
+  rspec (~> 3.7)
 
 BUNDLED WITH
-   1.16.0.pre.3
+   1.16.0

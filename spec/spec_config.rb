@@ -8,7 +8,12 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
-  
+
+  # config.full_backtrace = true
+
+  # Comment this line to enable printing to console
   suppress_print(config)
 
 end
+
+RSpec::Expectations.configuration.on_potential_false_positives = :nothing

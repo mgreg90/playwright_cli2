@@ -16,4 +16,6 @@ def suppress_print(config)
   end
 end
 
+
+require File.join(File.dirname(__FILE__), "shared_examples.rb")
 require 'spec_config.rb'
