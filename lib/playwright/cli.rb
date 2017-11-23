@@ -1,4 +1,5 @@
 require 'playwright/play'
+require 'playwright/cli/directory_builder'
 require 'playwright/cli/get'
 require 'playwright/cli/new'
 

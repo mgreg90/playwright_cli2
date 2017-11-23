@@ -1,0 +1,7 @@
+ADDED extensions to String for changing case.
+ADDED DirectoryBuilder for constructing play directories.
+ADDED some file creation to the 'New' method.
+ADDED before_validation to hook to Play class.
+RENAMED gem to playwright_cli because name was taken.
+ADDED lots of tests 😃.
+BUILT gem.

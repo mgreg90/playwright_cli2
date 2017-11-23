@@ -1,4 +1,5 @@
 require 'playwright/play/params'
+
 module Playwright
   class Arguments
 
@@ -23,7 +24,7 @@ module Playwright
       return arg.sub('--', '') if arg.include?('--')
       arg.sub('-', '').chars
     end
-    
+
     def to_h
       {
         options: options,

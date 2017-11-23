@@ -1,6 +1,11 @@
 module Playwright
   class Installer
 
+    # Builds the following file structure
+    # ~/.playwright
+    #    |- plays/ # body of each play gets a folder with a file with #{play_name}.rb
+    #    |- bin/   # each play gets a single executable file.
+
     def self.run
       new.run
     end
