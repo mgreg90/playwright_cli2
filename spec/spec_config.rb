@@ -12,7 +12,7 @@ RSpec.configure do |config|
   # config.full_backtrace = true
 
   # Comment this line to enable printing to console
-  suppress_print(config)
+  # suppress_print(config)
 
 end
 
