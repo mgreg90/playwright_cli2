@@ -1,0 +1,28 @@
+class **play_name** < Playwright::Play
+
+  attr_reader :name
+
+  NAME_VALIDATION_MSG = "You have to tell me your name!"
+
+  # use PARAMS_MAP to map command line arguments to methods on the params object.
+  PARAMS_MAP = ['name']
+
+  # use VALIDATIONS to validate the arguments you've received.
+  VALIDATIONS = [
+    {
+      condition: proc { !params.name },
+      message: NAME_VALIDATION_MSG
+    }
+  ]
+
+  # use the before_validation hook to do whatever you want prior to validation.
+  def before_validation
+    @name = params.name
+  end
+
+  # get started doing your thing here!
+  def run
+    puts "Hello #{name}!"
+  end
+
+end

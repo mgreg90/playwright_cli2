@@ -8,6 +8,8 @@
 
 require 'fileutils'
 
+require 'ext/string'
+
 require 'playwright/version'
 require 'playwright/play'
 require 'playwright/cli'
@@ -15,8 +17,10 @@ require 'playwright/installer'
 
 module Playwright
 
-  BIN_PATH = File.join(Dir.home, "/.playwright/bin").freeze
-  PLAYS_PATH = File.join(Dir.home, "/.playwright/plays").freeze
+  PLAYWRIGHT_GEM_PATH = File.expand_path('..', __dir__)
+  PLAYWRIGHT_PATH = File.join(Dir.home, ".playwright").freeze
+  BIN_PATH = File.join(PLAYWRIGHT_PATH, "bin").freeze
+  PLAYS_PATH = File.join(PLAYWRIGHT_PATH, "plays").freeze
 
   class PlaywrightExit < SystemExit; end
 

@@ -16,8 +16,12 @@ module Playwright
       @args = Arguments.new(args)
       @params = @args.to_params
       map_params! if map_params?
+      before_validation
       validate!
     end
+
+    # let children define this.
+    def before_validation; end
 
     # this is the subclass's PARAMS_MAP
     def self.params_map
