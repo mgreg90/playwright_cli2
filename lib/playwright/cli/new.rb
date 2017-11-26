@@ -143,10 +143,12 @@ module Playwright
       end
 
       def open_editor
-        # TODO: linux support
         visual = `echo $VISUAL`
-        `open $VISUAL` && return if visual && visual != ''
-        `open $EDITOR`
+        if visual && visual != ''
+          `$VISUAL #{directories.play_body_file_path}`
+        else
+          `$EDITOR #{directories.play_body_file_path}`
+        end
       end
 
     end

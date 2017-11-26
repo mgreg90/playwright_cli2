@@ -1,6 +1,7 @@
 require 'playwright/play'
 require 'playwright/cli/directory_builder'
 require 'playwright/cli/get'
+require 'playwright/cli/install'
 require 'playwright/cli/new'
 
 module Playwright
@@ -12,7 +13,8 @@ module Playwright
     INVALID_COMMAND_MSG = "Playwright doesn't know that command.".freeze
     COMMANDS = [
       { klass:'get', terms: ['get'] },
-      { klass: 'new', terms: ['generate', 'g', 'new'] }
+      { klass: 'new', terms: ['generate', 'g', 'new'] },
+      { klass: 'install', terms: ['install'] }
     ].freeze
 
     PARAMS_MAP = [:command]

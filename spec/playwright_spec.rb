@@ -4,8 +4,8 @@ RSpec.describe Playwright do
   end
 
   describe '#install' do
-    it "calls Playwright::Installer.run" do
-      expect(Playwright::Installer).to receive(:run).with(no_args)
+    it "calls Playwright::Cli::Installer.run" do
+      expect(Playwright::Cli::Install).to receive(:run).with(no_args)
       Playwright.install
     end
   end

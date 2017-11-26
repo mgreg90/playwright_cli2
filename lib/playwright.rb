@@ -13,7 +13,6 @@ require 'ext/string'
 require 'playwright/version'
 require 'playwright/play'
 require 'playwright/cli'
-require 'playwright/installer'
 
 module Playwright
 
@@ -25,7 +24,7 @@ module Playwright
   class PlaywrightExit < SystemExit; end
 
   def self.install
-    Installer.run
+    Cli::Install.run
   end
 
 end
