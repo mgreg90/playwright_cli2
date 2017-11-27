@@ -9,7 +9,7 @@ module Playwright
 
       map_params :play_name
 
-      # PARAMS_MAP = ['play_name']
+      map_option short: 's', long: 'service', require_value: true
 
       validate proc { !params.play_name },
         NO_PLAY_NAME_MSG
@@ -31,7 +31,6 @@ module Playwright
         create_lib
         bundle
         git_init
-        # TODO: Add service if option given
         open_editor
       end
 
@@ -73,7 +72,8 @@ module Playwright
           source 'https://rubygems.org'
           ruby '2.4.1'
 
-          gem 'playwright_cli', git: 'https://github.com/mgreg90/playwright_cli.git', branch: 'args-params'
+          gem 'playwright_cli', git: 'https://github.com/mgreg90/playwright_cli.git', branch: 'develop'
+          gem 'httparty'
         GEMFILE_CONTENTS
       end
 
@@ -102,7 +102,18 @@ module Playwright
       def play_body_contents
         @play_body_contents ||= begin
           template = File.join(PLAYWRIGHT_GEM_PATH, 'public', 'assets', 'new_play.rb.template')
-          File.read(template).gsub('**play_name**', play_name.to_pascal_case)
+          prepare_new_play(template)
+        end
+      end
+
+      def prepare_new_play(file)
+        file = File.read(file)
+        file = file.gsub('**play_name**', play_name.to_pascal_case)
+        if params.service
+          file = file.gsub('**service**', params.service)
+          file = file.gsub('# set_service', 'set_service')
+          file = file.gsub('# puts "Getting prices..."', 'puts "Getting prices..."')
+          file = file.gsub('# display(json: service.get)', 'display(json: service.get)')
         end
       end
 
