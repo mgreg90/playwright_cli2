@@ -3,6 +3,8 @@ RSpec.describe Playwright::Cli::New do
   let(:subject) { described_class.new(args) }
   before do
     MemFs.activate!
+    FileUtils.mkdir_p(Dir.home)
+    FileUtils.touch(File.join(Dir.home, '.bashrc'))
     Playwright.install
     allow(subject).to receive(:play_body_contents).and_return('')
   end

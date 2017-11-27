@@ -6,16 +6,14 @@ class **play_name** < Playwright::Play
 
   NAME_VALIDATION_MSG = "You have to tell me your name!"
 
-  # use PARAMS_MAP to map command line arguments to methods on the params object.
-  PARAMS_MAP = ['name']
+  # use map_params to map command line arguments to methods on the params object.
+  map_params :name
 
-  # use VALIDATIONS to validate the arguments you've received.
-  VALIDATIONS = [
-    {
-      condition: proc { !params.name },
-      message: NAME_VALIDATION_MSG
-    }
-  ]
+  # use map_option to map command line options to methods on the params object.
+  map_option short: 'c', long: 'capitalize', require_value: false
+
+  # use `validate` to validate the arguments you've received.
+  validate proc { !params.name }, NAME_VALIDATION_MSG
 
   # use the before_validation hook to do whatever you want prior to validation.
   def before_validation
@@ -24,7 +22,8 @@ class **play_name** < Playwright::Play
 
   # get started doing your thing here!
   def run
-    puts "Hello #{name}!"
+    final_name = params.capitalize? ? name.capitalize : name
+    puts "Hello #{final_name}!"
   end
 
 end

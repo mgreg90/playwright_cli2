@@ -52,7 +52,6 @@ module Playwright
       end
 
       def profile
-        require 'pry'; binding.pry
         @profile ||= ['.zshrc', '.bashrc', '.bash_profile', '.profile'].map do |file|
           file = File.join(Dir.home, file)
           File.exists?(file) ? file : nil
