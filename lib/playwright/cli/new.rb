@@ -7,17 +7,14 @@ module Playwright
       NO_PLAY_NAME_MSG = "You need to give your play a name!"
       PLAY_ALREADY_EXISTS_MSG = "That play name is already taken!"
 
-      PARAMS_MAP = ['play_name']
-      VALIDATIONS = [
-        {
-          condition: proc { !params.play_name },
-          message: NO_PLAY_NAME_MSG
-        },
-        {
-          condition: proc { play_already_exists? },
-          message: PLAY_ALREADY_EXISTS_MSG
-        }
-      ]
+      map_params :play_name
+
+      # PARAMS_MAP = ['play_name']
+
+      validate proc { !params.play_name },
+        NO_PLAY_NAME_MSG
+      validate proc { play_already_exists? },
+        PLAY_ALREADY_EXISTS_MSG
 
       def before_validation
         @play_name = params.play_name
@@ -76,7 +73,7 @@ module Playwright
           source 'https://rubygems.org'
           ruby '2.4.1'
 
-          gem 'playwright_cli', git: 'https://github.com/mgreg90/playwright_cli.git', branch: 'cli-new'
+          gem 'playwright_cli', git: 'https://github.com/mgreg90/playwright_cli.git', branch: 'args-params'
         GEMFILE_CONTENTS
       end
 

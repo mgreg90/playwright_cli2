@@ -17,20 +17,15 @@ module Playwright
       { klass: 'install', terms: ['install'] }
     ].freeze
 
-    PARAMS_MAP = [:command]
-    VALIDATIONS = [
-      {
-        condition: proc { !params.command },
-        message: NO_COMMAND_MSG
-      },
-      {
-        condition: proc { !self.class.terms.include?(params.command) },
-        message: INVALID_COMMAND_MSG
-      }
-    ]
+    map_params :command
+
+    validate proc { !params.command },
+      NO_COMMAND_MSG
+    validate proc { !self.class.terms.include?(params.command) },
+      INVALID_COMMAND_MSG
 
     def run
-      params.arguments.length > 1 ? klass.run(params.arguments[1..-1]) : klass.run
+      params.to_a.length > 1 ? klass.run(params.to_a[1..-1]) : klass.run
     end
 
     def klass
