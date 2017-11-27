@@ -7,6 +7,7 @@
 # require_relative "playwright/version.rb"
 
 require 'fileutils'
+require 'httparty'
 
 require 'ext/string'
 

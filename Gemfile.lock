@@ -2,14 +2,18 @@ PATH
   remote: .
   specs:
     playwright_cli (0.1.0)
+      httparty (~> 0.15.6, >= 0.15.6)
 
 GEM
   remote: https://rubygems.org/
   specs:
     coderay (1.1.2)
     diff-lcs (1.3)
+    httparty (0.15.6)
+      multi_xml (>= 0.5.2)
     memfs (1.0.0)
     method_source (0.8.2)
+    multi_xml (0.6.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)

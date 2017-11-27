@@ -15,6 +15,9 @@ class **play_name** < Playwright::Play
   # use `validate` to validate the arguments you've received.
   validate proc { !params.name }, NAME_VALIDATION_MSG
 
+  # set base_url for service object
+  # set_service "**service**"
+
   # use the before_validation hook to do whatever you want prior to validation.
   def before_validation
     @name = params.name
@@ -24,6 +27,8 @@ class **play_name** < Playwright::Play
   def run
     final_name = params.capitalize? ? name.capitalize : name
     puts "Hello #{final_name}!"
+    # puts "Getting prices..."
+    # display(json: service.get)
   end
 
 end

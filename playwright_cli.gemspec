@@ -32,6 +32,8 @@ Gem::Specification.new do |spec|
 
   spec.post_install_message = "#{'='*80}\nTo finish installation, please run:\n$ playwright install\n#{'='*80}\n"
 
+  spec.add_runtime_dependency "httparty", "~> 0.15.6", ">= 0.15.6"
+
   spec.add_development_dependency "bundler", "~> 1.16.0", ">= 1.16.0"
   spec.add_development_dependency "rake", "~> 12.2.1", ">= 12.2.1"
   spec.add_development_dependency "rspec", "~> 3.7", ">= 3.7"

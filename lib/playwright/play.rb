@@ -1,4 +1,6 @@
-require 'playwright/play/arguments'
+require 'playwright/play/display'
+require 'playwright/play/params'
+require 'playwright/play/service'
 
 module Playwright
   class Play
@@ -29,6 +31,26 @@ module Playwright
 
     def self.validations
       @validations ||= []
+    end
+
+    def self.service
+      @service ||= nil
+    end
+
+    def service
+      self.class.service
+    end
+
+    def self.set_service(base_url)
+      @service = Service.new(base_url)
+    end
+
+    def self.display(*args)
+      @display ||= Display.new(*args)
+    end
+
+    def display(*args)
+      self.class.display(*args).show
     end
 
     def self.validate(proc, message=DEFAULT_VALIDATION_MSG)
