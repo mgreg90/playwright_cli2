@@ -2,9 +2,9 @@ RSpec.describe Playwright::DirectoryBuilder do
   let(:play_name) { "my_example_play" }
   let(:subject) { described_class.new(play_name) }
 
-  describe "#executable_file_path" do
+  describe "#executable_filepath" do
     it "should be 'Playwright::BIN_PATH'" do
-      expect(subject.executable_file_path).to eq Playwright::BIN_PATH
+      expect(subject.executable_filepath).to eq Playwright::BIN_PATH
     end
   end
   describe "#executable_file_name" do
@@ -14,13 +14,13 @@ RSpec.describe Playwright::DirectoryBuilder do
   end
   describe "#executable_file_name_and_path" do
     it "should be 'Playwright::BIN_PATH/my-example-play'" do
-      expect(subject.executable_file_path).to eq Playwright::BIN_PATH
+      expect(subject.executable_filepath).to eq Playwright::BIN_PATH
     end
   end
-  describe "#play_body_file_path" do
+  describe "#play_body_filepath" do
     it "should be 'Playwright::PLAYS_PATH/my_example_play'" do
       path = File.join(Playwright::PLAYS_PATH, 'my_example_play')
-      expect(subject.play_body_file_path).to eq path
+      expect(subject.play_body_filepath).to eq path
     end
   end
   describe "#play_body_file_name" do

@@ -1,6 +1,8 @@
-require 'playwright'
+require 'rubygems'
+require 'bundler'
+Bundler.require(:default)
 
-class **play_name** < Playwright::Play
+class <%= play_name %> < Playwright::Play
 
   attr_reader :name
 
@@ -15,8 +17,8 @@ class **play_name** < Playwright::Play
   # use `validate` to validate the arguments you've received.
   validate proc { !params.name }, NAME_VALIDATION_MSG
 
-  # set base_url for service object
-  # set_service "**service**"
+  # set base_url for api calls using `service` object
+  <%= service_line %>
 
   # use the before_validation hook to do whatever you want prior to validation.
   def before_validation
@@ -27,8 +29,8 @@ class **play_name** < Playwright::Play
   def run
     final_name = params.capitalize? ? name.capitalize : name
     puts "Hello #{final_name}!"
-    # puts "Getting prices..."
-    # display(json: service.get)
+    <%= service? ? "" : "# " %>puts "Requesting data..."
+    <%= service? ? "" : "# " %>display(json: service.get)
   end
 
 end

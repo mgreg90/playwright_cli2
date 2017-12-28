@@ -24,6 +24,7 @@ module Playwright
       def create_file_structure
         find_or_create(Playwright::BIN_PATH)
         find_or_create(Playwright::PLAYS_PATH)
+        create_playwrightrc
       end
 
       def find_or_create(dir)
@@ -43,12 +44,22 @@ module Playwright
         puts "#{dir} created!"
       end
 
+      def create_playwrightrc
+        # TODO: Do this thing
+      end
+
       def add_to_path
         puts "Updating $PATH in #{profile}"
         File.open(profile, 'a') do |f|
           f.puts "\n\n# Add Playwright executables to PATH"
           f.puts "export PATH=$PATH:#{Playwright::BIN_PATH}"
         end
+      end
+
+      def playwrightrc
+        <<~SHELL
+          export PATH=$PATH:#{Playwright::BIN_PATH}
+        SHELL
       end
 
       def profile

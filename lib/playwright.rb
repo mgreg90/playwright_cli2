@@ -1,11 +1,3 @@
-# require_relative "playwright/utils/arguments.rb"
-# require_relative "playwright/utils/params.rb"
-#
-# require_relative "playwright/cli.rb"
-# require_relative "playwright/installer.b"
-# require_relative "playwright/play.rb"
-# require_relative "playwright/version.rb"
-
 require 'fileutils'
 require 'httparty'
 
@@ -21,6 +13,7 @@ module Playwright
   PLAYWRIGHT_PATH = File.join(Dir.home, ".playwright").freeze
   BIN_PATH = File.join(PLAYWRIGHT_PATH, "bin").freeze
   PLAYS_PATH = File.join(PLAYWRIGHT_PATH, "plays").freeze
+  NEW_TEMPLATE_PATH = File.join(PLAYWRIGHT_GEM_PATH, 'public', 'assets', 'new_play.rb.erb')
 
   class PlaywrightExit < SystemExit; end
 

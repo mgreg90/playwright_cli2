@@ -7,7 +7,7 @@ module Playwright
       @play_name = play_name
     end
 
-    def executable_file_path
+    def executable_filepath
       BIN_PATH
     end
 
@@ -16,10 +16,10 @@ module Playwright
     end
 
     def executable_file_name_and_path
-      File.join(executable_file_path, executable_file_name)
+      File.join(executable_filepath, executable_file_name)
     end
 
-    def play_body_file_path
+    def play_body_filepath
       File.join(PLAYS_PATH, play_name.to_snake_case)
     end
 
@@ -28,15 +28,15 @@ module Playwright
     end
 
     def play_body_file_name_and_path
-      File.join(play_body_file_path, play_body_file_name)
+      File.join(play_body_filepath, play_body_file_name)
     end
 
     def gemfile_name_and_path
-      File.join(play_body_file_path, "Gemfile")
+      File.join(play_body_filepath, "Gemfile")
     end
 
     def config_name_and_path
-      File.join(play_body_file_path, "config.yml")
+      File.join(play_body_filepath, "config.yml")
     end
 
     def play_class

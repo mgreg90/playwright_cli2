@@ -34,15 +34,19 @@ module Playwright
     end
 
     def self.service
-      @service ||= nil
+      @service ||= Service.new
     end
 
     def service
       self.class.service
     end
 
-    def self.set_service(base_url)
-      @service = Service.new(base_url)
+    def self.set_service_url(base_url)
+      service.base_url = base_url
+    end
+
+    def self.set_service_resource(resource)
+      @service.resource = resource
     end
 
     def self.display(*args)

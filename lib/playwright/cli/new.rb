@@ -4,8 +4,8 @@ module Playwright
 
       attr_reader :play_name, :directories
 
-      NO_PLAY_NAME_MSG = "You need to give your play a name!"
-      PLAY_ALREADY_EXISTS_MSG = "That play name is already taken!"
+      NO_PLAY_NAME_MSG = "You need to give your play a name!".freeze
+      PLAY_ALREADY_EXISTS_MSG = "That play name is already taken!".freeze
 
       map_params :play_name
 
@@ -39,7 +39,7 @@ module Playwright
       end
 
       def create_executable
-        FileUtils.mkdir_p(directories.executable_file_path)
+        FileUtils.mkdir_p(directories.executable_filepath)
         File.open(directories.executable_file_name_and_path, "w+") do |file|
           file << executable_contents
         end
@@ -60,7 +60,7 @@ module Playwright
       end
 
       def create_gemfile
-        FileUtils.mkdir_p(directories.play_body_file_path)
+        FileUtils.mkdir_p(directories.play_body_filepath)
         File.open(directories.gemfile_name_and_path, "w+") do |file|
           file << gemfile_contents
         end
@@ -72,13 +72,17 @@ module Playwright
           source 'https://rubygems.org'
           ruby '2.4.1'
 
-          gem 'playwright_cli', git: 'https://github.com/mgreg90/playwright_cli.git', branch: 'develop'
+          gem 'playwright_cli', git: 'https://github.com/mgreg90/playwright_cli.git', branch: 'develop', require: 'playwright'
           gem 'httparty'
+
+          group :development do
+            gem 'pry'
+          end
         GEMFILE_CONTENTS
       end
 
       def create_config
-        FileUtils.mkdir_p(directories.play_body_file_path)
+        FileUtils.mkdir_p(directories.play_body_filepath)
         File.open(directories.config_name_and_path, "w+") do |file|
           file << config_contents
         end
@@ -92,7 +96,7 @@ module Playwright
       end
 
       def create_play_body
-        FileUtils.mkdir_p(directories.play_body_file_path)
+        FileUtils.mkdir_p(directories.play_body_filepath)
         File.open(directories.play_body_file_name_and_path, "w+") do |file|
           file << play_body_contents
         end
@@ -101,35 +105,38 @@ module Playwright
 
       def play_body_contents
         @play_body_contents ||= begin
-          template = File.join(PLAYWRIGHT_GEM_PATH, 'public', 'assets', 'new_play.rb.template')
+          template = File.read(NEW_TEMPLATE_PATH)
           prepare_new_play(template)
         end
       end
 
-      def prepare_new_play(file)
-        file = File.read(file)
-        file = file.gsub('**play_name**', play_name.to_pascal_case)
-        if params.service
-          file = file.gsub('**service**', params.service)
-          file = file.gsub('# set_service', 'set_service')
-          file = file.gsub('# puts "Getting prices..."', 'puts "Getting prices..."')
-          file = file.gsub('# display(json: service.get)', 'display(json: service.get)')
+      def prepare_new_play(template)
+        vars = {play_name: play_name.to_pascal_case}
+        generic_api_url = "http://jsonplaceholder.typicode.com/posts"
+        service_line = if params.service
+          vars[:service?] = true
+          "set_service \"#{params.service}\""
+        else
+          vars[:service?] = false
+          "# set_service \"#{generic_api_url}\""
         end
+        vars[:service_line] = service_line
+        Renderer.render(template, vars)
       end
 
       def create_lib
-        FileUtils.mkdir_p(File.join(directories.play_body_file_path, 'lib'))
+        FileUtils.mkdir_p(File.join(directories.play_body_filepath, 'lib'))
         puts "Lib directory Created!"
       end
 
       def bundle
-        lines = `cur_dir="$(pwd)" &&
-        cd #{directories.play_body_file_path} &&
+        result = `cur_dir="$(pwd)" &&
+        cd #{directories.play_body_filepath} &&
         ls -al &&
         pwd &&
         bundle --gemfile="#{directories.gemfile_name_and_path}" &&
         cd $cur_dir`
-        if lines.match(/Bundle complete!/)
+        if result.match(/Bundle complete!/)
           puts "Play bundled!"
         else
           puts "Bundle failed!"
@@ -138,7 +145,7 @@ module Playwright
 
       def git_init
         lines = `cur_dir="$(pwd)" &&
-        cd #{directories.play_body_file_path} &&
+        cd #{directories.play_body_filepath} &&
         ls -al &&
         pwd &&
         git init &&
@@ -153,9 +160,9 @@ module Playwright
       def open_editor
         visual = `echo $VISUAL`
         if visual && visual != ''
-          `$VISUAL #{directories.play_body_file_path}`
+          `$VISUAL #{directories.play_body_filepath}`
         else
-          `$EDITOR #{directories.play_body_file_path}`
+          `$EDITOR #{directories.play_body_filepath}`
         end
       end
 
