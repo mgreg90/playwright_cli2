@@ -1,8 +1,11 @@
 require 'playwright/play'
+
 require 'playwright/cli/directory_builder'
 require 'playwright/cli/get'
 require 'playwright/cli/install'
 require 'playwright/cli/new'
+require 'playwright/cli/publish'
+require 'playwright/cli/renderer'
 
 module Playwright
   class Cli < Play
@@ -14,7 +17,8 @@ module Playwright
     COMMANDS = [
       { klass:'get', terms: ['get'] },
       { klass: 'new', terms: ['generate', 'g', 'new'] },
-      { klass: 'install', terms: ['install'] }
+      { klass: 'install', terms: ['install'] },
+      { klass: 'publish', terms: ['publish'] }
     ].freeze
 
     map_params :command

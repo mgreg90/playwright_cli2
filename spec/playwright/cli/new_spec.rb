@@ -100,7 +100,7 @@ RSpec.describe Playwright::Cli::New do
     let(:play_name) { 'my_play' }
     let(:lines) { subject.send(method).split("\n") }
     it "should inherit from Playwright::Play" do
-      expect(lines[2]).to match(/Playwright::Play$/)
+      expect(lines[4]).to match(/Playwright::Play$/)
     end
     it "should not include dummy text" do
       expect(lines[2]).not_to match(/\*\*play_name\*\*/)
